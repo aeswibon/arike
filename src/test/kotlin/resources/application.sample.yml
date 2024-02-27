@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: Arike
+  main:
+    banner-mode: off
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  liquibase:
+    change-log: classpath*:db/changelog/db.changelog-master.yml
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: ${JWT_ACCESS_EXPIRY_TIME}
+      refresh-token:
+        expiration: ${JWT_REFRESH_EXPIRY_KEY}
+server:
+  port: 8080
+ENV: dev
+logging:
+  pattern:
+    console: log_level=%p timestamp=%d{yyyy-MM-dd'T'HH:mm:ss.SSS} product=hatio-payouts service=ops-portal server_name=ops_portal_backend environment=${ENV} %m%n
+  level:
+    org.springframework.web: INFO
+    org.hibernate.SQL: INFO
