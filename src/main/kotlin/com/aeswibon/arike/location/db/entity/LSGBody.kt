@@ -2,6 +2,8 @@ package com.aeswibon.arike.location.db.entity
 
 import com.aeswibon.arike.location.enum.LSGBodyKind
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -17,6 +19,7 @@ data class LSGBody(
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long = 0,
   val name: String,
+  @Enumerated(EnumType.STRING)
   val kind: LSGBodyKind,
   val code: String,
   @OneToOne(fetch = FetchType.LAZY)

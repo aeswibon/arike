@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS lsg_bodies (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    kind VARCHAR(30) NOT NULL,
+    code VARCHAR(255) NOT NULL,
+    district_id BIGINT REFERENCES districts(id) ON DELETE CASCADE
+);

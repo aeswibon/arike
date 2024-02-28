@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
+import jakarta.persistence.PrimaryKeyJoinColumn
 import jakarta.persistence.Table
 
 @Entity
@@ -18,5 +19,6 @@ data class Ward(
   val name: String,
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "lsg_bodies_id")
+  @PrimaryKeyJoinColumn(name = "lsg_bodies")
   val lsgBody: LSGBody,
 )

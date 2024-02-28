@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS wards (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    lsg_bodies_id BIGINT REFERENCES lsg_bodies(id) ON DELETE CASCADE
+);

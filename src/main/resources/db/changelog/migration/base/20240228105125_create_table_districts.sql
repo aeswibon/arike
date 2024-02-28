@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS districts (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    state_id BIGINT REFERENCES states(id) ON DELETE CASCADE
+);

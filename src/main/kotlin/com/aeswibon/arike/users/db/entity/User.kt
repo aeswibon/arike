@@ -6,6 +6,8 @@ import com.aeswibon.arike.users.enum.Role
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -24,15 +26,11 @@ data class User(
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   val uuid: UUID,
-  @Column(name = "username")
   val username: String,
-  @Column(name = "email")
   val email: String,
-  @Column(name = "password")
   val password: String,
-  @Column(name = "state")
   val state: String,
-  @Column(name = "role")
+  @Enumerated(EnumType.STRING)
   val role: Role,
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "district_id")
