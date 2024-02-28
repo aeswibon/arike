@@ -4,5 +4,5 @@ import jakarta.validation.Valid
 
 data class GenericRequest<DataClass>(
   @get:Valid
-  override val data: DataClass
+  override val data: DataClass,
 ) : RequestDTO<DataClass>

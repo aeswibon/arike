@@ -1,0 +1,31 @@
+style:
+  MultilineRawStringIndentation:
+    indentSize: 2
+  MagicNumber:
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    ignoreNumbers:
+      - '-1'
+      - '0'
+      - '1'
+      - '2'
+    ignoreEnums: true
+  ThrowsCount:
+    active: true
+    max: 4
+    excludeGuardClauses: false
+
+complexity:
+  TooManyFunctions:
+    thresholdInClasses: 13
+  NestedBlockDepth:
+    active: true
+    threshold: 5
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 10
+
+naming:
+  FunctionNaming:
+    functionPattern: '^[a-z_A-Z][a-z_A-Z0-9]*'
+  ConstructorParameterNaming:
+    parameterPattern: '^[a-z_A-Z][a-z_A-Z0-9]*'

@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration
 @Aspect
 @Configuration
 class LoggingAspect {
-
   @Autowired
   lateinit var clientRequest: HttpServletRequest
 
@@ -32,7 +31,7 @@ class LoggingAspect {
         "clientIP = ${getClientIP()}, methodType: ${clientRequest.method}, requestURI:${clientRequest.requestURI}" +
           """, {"path": "${joinPoint.target.javaClass.getResource("")?.path}"""" +
           """, "code_file_name":"${joinPoint.target.javaClass.simpleName}""""" +
-          """, "method_name": "${joinPoint.signature.name}", "code_file_line": "empty""""
+          """, "method_name": "${joinPoint.signature.name}", "code_file_line": "empty"""",
       )
 
     val result =
@@ -53,7 +52,7 @@ class LoggingAspect {
     val duration = System.currentTimeMillis() - start
 
     logger.info(
-      """end -> Finished executing: $signature, "payload": $result, duration(ms): $duration ms"""
+      """end -> Finished executing: $signature, "payload": $result, duration(ms): $duration ms""",
     )
     if (result == null) return ""
     return result
@@ -70,7 +69,7 @@ class LoggingAspect {
           } catch (e: JsonProcessingException) {
             logger.info(e.message)
             p.toString()
-          }
+          },
         )
       } else if (p.javaClass.simpleName == "StandardMultipartFile") {
         append("Parameter is multipart file")

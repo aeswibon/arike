@@ -9,5 +9,5 @@ import org.springframework.boot.runApplication
 class ArikeApplication
 
 fun main(args: Array<String>) {
-	runApplication<ArikeApplication>(*args)
+  runApplication<ArikeApplication>(*args)
 }

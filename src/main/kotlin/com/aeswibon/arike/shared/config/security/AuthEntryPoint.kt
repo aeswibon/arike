@@ -13,19 +13,21 @@ import org.springframework.stereotype.Component
 
 @Component
 class AuthEntryPoint(
-  private val objectMapper: ObjectMapper
+  private val objectMapper: ObjectMapper,
 ) : AuthenticationEntryPoint {
   private val logger = LoggerFactory.getLogger(this.javaClass)
+
   override fun commence(
     request: HttpServletRequest,
     response: HttpServletResponse,
-    authException: AuthenticationException
+    authException: AuthenticationException,
   ) {
-    val errorResponse = ErrorResponseDTO(
-      ErrorCodes.AK10001.name,
-      ErrorCodes.AK10001.exceptionName,
-      ErrorCodes.AK10001.message
-    )
+    val errorResponse =
+      ErrorResponseDTO(
+        ErrorCodes.AK10001.name,
+        ErrorCodes.AK10001.exceptionName,
+        ErrorCodes.AK10001.message,
+      )
     logger.error(ErrorCodes.AK10001.exceptionName, authException.message)
     response.sendError(HttpStatus.UNAUTHORIZED.value(), objectMapper.writeValueAsString(errorResponse))
   }

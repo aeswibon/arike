@@ -9,5 +9,5 @@ data class PaginationSortFilterDTO(
   val pageNumber: Int = 1,
   val searchText: String? = null,
   val sortBy: String? = null,
-  val paginationEnabled: Boolean = true
+  val paginationEnabled: Boolean = true,
 )

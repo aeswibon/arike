@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query
 import java.util.Optional
 import java.util.UUID
 
-interface TokenRepository: JpaRepository<Token, Long> {
-    @Query(TokenQueries.TOKEN_FETCH)
-    fun findAllValidTokenByUser(uuid: UUID): List<Token>
+interface TokenRepository : JpaRepository<Token, Long> {
+  @Query(TokenQueries.TOKEN_FETCH)
+  fun findAllValidTokenByUser(uuid: UUID): List<Token>
 
-    fun findByToken(token: String): Optional<Token>
+  fun findByToken(token: String): Optional<Token>
 }

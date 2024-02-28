@@ -1,5 +1,5 @@
 package com.aeswibon.arike.shared.dto
 
 data class MessageResponseDTO(
-  val message: String
+  val message: String,
 ) : IDTO

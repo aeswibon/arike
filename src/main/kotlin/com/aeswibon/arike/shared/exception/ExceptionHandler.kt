@@ -17,32 +17,27 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 class ExceptionHandler : ResponseEntityExceptionHandler() {
-
   @ExceptionHandler(ArikeException::class)
-  fun handleOpsPortalBackendException(
-    ex: ArikeException
-  ): ResponseEntity<ErrorResponseDTO> {
+  fun handleOpsPortalBackendException(ex: ArikeException): ResponseEntity<ErrorResponseDTO> {
     return ResponseEntity.badRequest()
       .body(
         ErrorResponseDTO(
           ex.errorCode?.name ?: ErrorCodes.AK00001.name,
           ex.errorCode?.exceptionName ?: ErrorCodes.AK00001.exceptionName,
-          ex.reason ?: ex.errorCode?.message ?: ErrorCodes.AK00001.message
-        )
+          ex.reason ?: ex.errorCode?.message ?: ErrorCodes.AK00001.message,
+        ),
       )
   }
 
   @ExceptionHandler(JpaSystemException::class)
-  fun handleJpaSystemException(
-    ex: JpaSystemException
-  ): ResponseEntity<ErrorResponseDTO> {
+  fun handleJpaSystemException(ex: JpaSystemException): ResponseEntity<ErrorResponseDTO> {
     return ResponseEntity.badRequest()
       .body(
         ErrorResponseDTO(
           ErrorCodes.AK00001.name,
           ErrorCodes.AK00001.exceptionName,
-          ExceptionUtils.getDbErrorFromException(ex)
-        )
+          ExceptionUtils.getDbErrorFromException(ex),
+        ),
       )
   }
 
@@ -54,8 +49,8 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         ErrorResponseDTO(
           ErrorCodes.AK00001.name,
           ErrorCodes.AK00001.exceptionName,
-          ErrorCodes.AK00001.message
-        )
+          ErrorCodes.AK00001.message,
+        ),
       )
   }
 
@@ -63,7 +58,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     ex: HttpMessageNotReadableException,
     headers: HttpHeaders,
     status: HttpStatusCode,
-    request: WebRequest
+    request: WebRequest,
   ): ResponseEntity<Any> {
     val parameter: String
     if (ex.cause is MismatchedInputException) {
@@ -74,16 +69,16 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
         ErrorResponseDTO(
           ErrorCodes.AK00002.name,
           ErrorCodes.AK00002.exceptionName,
-          "$parameter is missing"
-        )
+          "$parameter is missing",
+        ),
       )
     }
     return ResponseEntity.badRequest().body(
       ErrorResponseDTO(
         ErrorCodes.AK00004.name,
         ErrorCodes.AK00004.exceptionName,
-        ErrorCodes.AK00004.message
-      )
+        ErrorCodes.AK00004.message,
+      ),
     )
   }
 
@@ -91,41 +86,37 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     ex: MethodArgumentNotValidException,
     headers: HttpHeaders,
     status: HttpStatusCode,
-    request: WebRequest
+    request: WebRequest,
   ): ResponseEntity<Any>? {
     val errors = ex.bindingResult.allErrors.map { error -> error.defaultMessage }.toList()
     return ResponseEntity.badRequest().body(
       ErrorResponseDTO(
         ErrorCodes.AK00002.name,
         ErrorCodes.AK00002.exceptionName,
-        errors.joinToString()
-      )
+        errors.joinToString(),
+      ),
     )
   }
 
   @ExceptionHandler(ValidationException::class)
-  fun handleValidationException(
-    ex: ValidationException
-  ): ResponseEntity<ErrorResponseDTO> {
+  fun handleValidationException(ex: ValidationException): ResponseEntity<ErrorResponseDTO> {
     return ResponseEntity.badRequest().body(
       ErrorResponseDTO(
         ErrorCodes.AK00002.name,
         ErrorCodes.AK00002.exceptionName,
-        ex.message ?: ex.localizedMessage
-      )
+        ex.message ?: ex.localizedMessage,
+      ),
     )
   }
 
   @ExceptionHandler(AccessDeniedException::class)
-  fun handleAccessDeniedException(
-    ex: AccessDeniedException
-  ): ResponseEntity<ErrorResponseDTO> {
+  fun handleAccessDeniedException(ex: AccessDeniedException): ResponseEntity<ErrorResponseDTO> {
     return ResponseEntity.badRequest().body(
       ErrorResponseDTO(
         ErrorCodes.AK10001.name,
         ErrorCodes.AK10001.exceptionName,
-        ex.message ?: ex.localizedMessage
-      )
+        ex.message ?: ex.localizedMessage,
+      ),
     )
   }
 }
